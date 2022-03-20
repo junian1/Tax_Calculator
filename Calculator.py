@@ -22,9 +22,7 @@ taxbrac_6perc = 0.21
 
 def calc_tax (monthly_sal):
     epf = float(monthly_sal) * epf_perc * 12
-    print(epf)
     socso = float(monthly_sal) * socso_perc * 12
-    print(socso)
     annual_sal = monthly_sal * 12
 
     total_relief = round(9000 + epf + socso,2)
