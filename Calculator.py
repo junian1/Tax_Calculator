@@ -26,7 +26,6 @@ def calc_tax (monthly_sal):
     annual_sal = monthly_sal * 12
 
     total_relief = round(9000 + epf + socso,2)
-    print(total_relief)
     chargeable_income = float(annual_sal) - donation - total_relief
     print(chargeable_income)
 
