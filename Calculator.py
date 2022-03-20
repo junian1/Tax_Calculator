@@ -6,7 +6,8 @@ donation = 0
 epf_perc = 0.09
 socso_perc = 0.004115
 
-taxbrac_1 = 5000
+tax_bracket1 = Tax_Bracket(5000,0)
+print(tax_bracket1)
 taxbrac_2 = 15000
 taxbrac_3 = 15000
 taxbrac_4 = 15000
