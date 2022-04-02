@@ -18,6 +18,9 @@ epf_q = input("Is your EPF percentage 9%? (True/False): ")
 
 socso_perc = 0.004115
 
+# deduct 400 for individual expense from gov, amount can be more if have spouse/children
+individual = 400
+
 # Tax Bracket 2021
 tax_array = []
 tax_array.append(Tax_Bracket(5000, 0))
@@ -52,17 +55,16 @@ def calc_tax(monthly_sal):
     # chargeable_income is the final amount gov can tax from you
     chargeable_income = float(annual_sal) - donation - total_relief
 
-    cycle = 0
+    loop_cnt = 0
     total_tax = 0
 
     # loop through each tax bracket until chargeable_income is less than 0
     while chargeable_income >= 0:
-        total_tax += min(chargeable_income, tax_array[cycle].amount) * tax_array[cycle].rate
-        chargeable_income -= tax_array[cycle].amount
-        cycle += 1
-    # deduct 400 for individual expense from gov, amount can be more if have spouse/children
-    final_tax = round(total_tax - 400, 2)
+        total_tax += min(chargeable_income, tax_array[loop_cnt].amount) * tax_array[loop_cnt].rate
+        chargeable_income -= tax_array[loop_cnt].amount
+        loop_cnt += 1
+    calc_amt = round(total_tax - individual, 2)
+    final_tax = (abs(calc_amt)+calc_amt)/2
     return (final_tax)
-
 
 print(calc_tax(monthly_sal))
