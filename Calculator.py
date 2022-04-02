@@ -9,7 +9,14 @@ except:
     sys.exit(1)
 
 try:
-    donation = float(input("How much is your deduction (donation)?: "))
+    donation = float(input("How much are your donations?: "))
+except:
+    print("Invalid amount")
+    sys.exit(1)
+
+try:
+    deductibles = float(input("How much are your deductibles after restriction"
+                              " (eg. lifestyle purchase, medical, insurance...)?: "))
 except:
     print("Invalid amount")
     sys.exit(1)
@@ -18,8 +25,8 @@ epf_q = input("Is your EPF percentage 9%? (True/False): ")
 
 socso_perc = 0.004115
 
-# deduct 400 for individual expense from gov, amount can be more if have spouse/children
-individual = 400
+# personal relief
+self = 9000
 
 # Tax Bracket 2021
 tax_array = []
@@ -50,10 +57,16 @@ def calc_tax(monthly_sal):
     annual_socso = monthly_sal * socso_perc * 12
     annual_sal = monthly_sal * 12
 
-    # 9000 for individual deduction
-    total_relief = round(9000 + annual_epf + annual_socso, 2)
+    # all reliefs
+    total_relief = round(self + donation + deductibles + annual_epf + annual_socso, 2)
     # chargeable_income is the final amount gov can tax from you
-    chargeable_income = float(annual_sal) - donation - total_relief
+    chargeable_income = float(annual_sal) - total_relief
+
+    # individual rebate deduction
+    if chargeable_income < 35000:
+        rebate = 400
+    else:
+        rebate = 0
 
     loop_cnt = 0
     total_tax = 0
@@ -63,8 +76,9 @@ def calc_tax(monthly_sal):
         total_tax += min(chargeable_income, tax_array[loop_cnt].amount) * tax_array[loop_cnt].rate
         chargeable_income -= tax_array[loop_cnt].amount
         loop_cnt += 1
-    calc_amt = round(total_tax - individual, 2)
+    calc_amt = round(total_tax - rebate, 2)
     final_tax = (abs(calc_amt)+calc_amt)/2
-    return (final_tax)
+    return final_tax
+
 
 print(calc_tax(monthly_sal))
