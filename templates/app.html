@@ -4,8 +4,8 @@
     <!-- <title>Banglore Home Price Prediction</title> -->
     <title>Income Tax Estimate</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="app.js"></script>
-	<link rel="stylesheet" href="app.css">
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+		<link rel="stylesheet" href="{{ url_for('static', filename='js/app.js') }}">
 </head>
 <body>
 <div class="img"></div>
@@ -13,7 +13,7 @@
 	<h2>Monthly Salary</h2>
     <input class="salary"  type="text" id="uiMonthlySalary" class="floatLabel" name="Squareft" value="3000">
 	<h2>Donations</h2>
-		<input class="donations"  type="text" id="uiDonation" class="floatLabel" name="Squareft" value="500">
+		<input class="donations"  type="text" id="uiDonations" class="floatLabel" name="Squareft" value="500">
 	<h2>Deductibles</h2>
 		<input class="deductibles"  type="text" id="uiDeductibles" class="floatLabel" name="Squareft" value="500">
 	</div>
