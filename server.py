@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import Calculator
 
 app = Flask(__name__)
@@ -6,6 +6,10 @@ app = Flask(__name__)
 @app.route('/hello', methods = ['GET'])
 def hello():
     return "Hi"
+
+@app.route('/')
+def index():
+    return render_template('app.html')
 
 @app.route('/income_tax', methods=['GET', 'POST'])
 def income_tax():
@@ -25,7 +29,7 @@ def income_tax():
 if __name__ == "__main__":
     print("Starting Python Flask Server for Tax Calculator")
     Calculator.load_saved_artifacts()
-    app.run()
+    app.run(debug=True)
 
 
 
