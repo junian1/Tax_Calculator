@@ -1,33 +1,10 @@
 from Class import Tax_Bracket
 import json
-import numpy as np
-import sys
 
-# Variables
-# try:
-#     monthly_sal = float(input("How much is your monthly salary?: "))
-# except:
-#     print("Invalid amount")
-#     sys.exit(1)
-
-# try:
-#     donation = float(input("How much are your donations?: "))
-# except:
-#     print("Invalid amount")
-#     sys.exit(1)
-
-# try:
-#     deductibles = float(input("How much are your deductibles after restriction"
-#                               " (eg. lifestyle purchase, medical, insurance...)?: "))
-# except:
-#     print("Invalid amount")
-#     sys.exit(1)
-
-# epf_q = input("Is your EPF percentage 9%? (True/False): ")
-
+# Socso percentage
 socso_perc = 0.004115
 
-# personal relief
+# Personal relief
 self = 9000
 
 # Tax Bracket 2021
@@ -47,75 +24,65 @@ tax_array.append(Tax_Bracket(9999999, 0.3))
 
 __data_columns = None
 
-def calc_tax(monthlysalary, donations, deductibles, percentage, debug=False):
+def calc_tax(monthlysalary, donations, deductibles, epf_perc, debug=False):
     
-    # Percentage switch
-    if percentage == 1:
-        percentage = 0.09
+    # Convert radio buttons to EPF percentage
+    if epf_perc == 1:
+        epf_perc = 0.09
     else:
-        percentage = 0.12
+        epf_perc = 0.12
     
-    # converting variables from monthly to annually
-    annual_epf = monthlysalary * percentage * 12
+    # Convert variables from monthly to annually
+    annual_epf = monthlysalary * epf_perc * 12
     annual_socso = monthlysalary * socso_perc * 12
     annual_sal = monthlysalary * 12
 
-    # all reliefs
+    # Total reliefs
     total_relief = round(self + donations + deductibles + annual_epf + annual_socso, 2)
     # chargeable_income is the final amount gov can tax from you
     chargeable_income = float(annual_sal) - total_relief
 
-    # individual rebate deduction
+    # Rebate deduction for lower income individuals
     if chargeable_income < 35000:
         rebate = 400
     else:
         rebate = 0
 
-
-
+    # Main tax calculation
     loop_cnt = 0
-    total_tax = 0\
-    # loop through each tax bracket until chargeable_income is less than 0
+    total_tax = 0
+
+    # Loop through each tax bracket until chargeable_income is less than or equal to 0
     while chargeable_income >= 0:
-        # 
+        # Summing up tax amount after looping through each tax bracket based on available chargeable income
         total_tax += min(chargeable_income, tax_array[loop_cnt].amount) * tax_array[loop_cnt].rate
-        # 
-        
         chargeable_income -= tax_array[loop_cnt].amount
-        # 
-        
         loop_cnt += 1
-        
+
     calc_amt = round(total_tax - rebate, 2)
     final_tax = (abs(calc_amt)+calc_amt)/2
-    
+
+    # To turn on debugging, manually change debug=True in the function parameter
     if debug == True:
         print("monthlysalary: " + str(monthlysalary))
         print("donations: " + str(donations))
         print("deductibles: " + str(deductibles))
-        print("percentage: " + str(percentage))
-        
-        print("annual_epf: "+str(annual_epf))
-        print("annual_socso: "+str(annual_socso))
-        print("annual_sal: "+str(annual_sal))
-        
-        print("total_relief: "+str(total_relief))
-        print("self: "+str(self))
-        print("donations: "+str(donations))
-        
-        print("chargeable_income: "+str(chargeable_income))
-        print("rebate: "+str(rebate))
-        print("loop_cnt: "+str(loop_cnt))
-        
-        print("total_tax: "+str(total_relief))
-        
-        print("calc_amt: "+str(calc_amt))
-        
-        print("final_tax: "+str(final_tax))
+        print("epf_perc: " + str(epf_perc))
+        print("annual_epf: " + str(annual_epf))
+        print("annual_socso: " + str(annual_socso))
+        print("annual_sal: " + str(annual_sal))
+        print("total_relief: " + str(total_relief))
+        print("self: " + str(self))
+        print("donations: " + str(donations))
+        print("chargeable_income: " + str(chargeable_income))
+        print("rebate: " + str(rebate))
+        print("loop_cnt: " + str(loop_cnt))
+        print("total_tax: " + str(total_relief))
+        print("calc_amt: " + str(calc_amt))
+        print("final_tax: " + str(final_tax))
     
     return final_tax
 
-# print(calc_tax(monthly_sal))
 
 def load_saved_artifacts():
     print("loading saved artifacts...start")
@@ -128,8 +95,6 @@ def load_saved_artifacts():
 def get_data_columns():
     return __data_columns
 
-if __name__ == '__main__':
-    load_saved_artifacts()
-    print(calc_tax(4800,100, 100, 0.09))
+
 
 
