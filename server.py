@@ -3,6 +3,7 @@ import Calculator
 
 app = Flask(__name__)
 
+# For testing
 @app.route('/hello', methods = ['GET'])
 def hello():
     return "Hi"
@@ -16,10 +17,10 @@ def income_tax():
     monthlysalary = float(request.form['monthlysalary'])
     donations = float(request.form['donations'])
     deductibles = float(request.form['deductibles'])
-    percentage = int(request.form['percentage'])
+    epf_perc = int(request.form['percentage'])
 
     response = jsonify({
-        'estimated_tax': Calculator.calc_tax(monthlysalary, donations, deductibles, percentage)
+        'estimated_tax': Calculator.calc_tax(monthlysalary, donations, deductibles, epf_perc)
     })
 
     response.headers.add('Access-Control-Allow-Origin', '*')
