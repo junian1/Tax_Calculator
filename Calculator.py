@@ -1,5 +1,6 @@
 from Class import Tax_Bracket
 import json
+from ImportTax import tax_array
 
 # Socso percentage
 socso_perc = 0.004115
@@ -7,25 +8,11 @@ socso_perc = 0.004115
 # Personal relief
 self = 9000
 
-# Tax Bracket 2021
-tax_array = []
-tax_array.append(Tax_Bracket(5000, 0))
-tax_array.append(Tax_Bracket(15000, 0.01))
-tax_array.append(Tax_Bracket(15000, 0.03))
-tax_array.append(Tax_Bracket(15000, 0.08))
-tax_array.append(Tax_Bracket(20000, 0.13))
-tax_array.append(Tax_Bracket(30000, 0.21))
-tax_array.append(Tax_Bracket(150000, 0.24))
-tax_array.append(Tax_Bracket(150000, 0.245))
-tax_array.append(Tax_Bracket(200000, 0.25))
-tax_array.append(Tax_Bracket(400000, 0.26))
-tax_array.append(Tax_Bracket(1000000, 0.28))
-tax_array.append(Tax_Bracket(9999999, 0.3))
-
 __data_columns = None
 
+
 def calc_tax(monthlysalary, donations, deductibles, epf_perc, debug=False):
-    
+
     # Convert radio buttons to EPF percentage
     if epf_perc == 1:
         epf_perc = 0.09
@@ -55,8 +42,8 @@ def calc_tax(monthlysalary, donations, deductibles, epf_perc, debug=False):
     # Loop through each tax bracket until chargeable_income is less than or equal to 0
     while chargeable_income >= 0:
         # Summing up tax amount after looping through each tax bracket based on available chargeable income
-        total_tax += min(chargeable_income, tax_array[loop_cnt].amount) * tax_array[loop_cnt].rate
-        chargeable_income -= tax_array[loop_cnt].amount
+        total_tax += min(chargeable_income, int(tax_array[loop_cnt].amount)) * tax_array[loop_cnt].rate
+        chargeable_income -= int(tax_array[loop_cnt].amount)
         loop_cnt += 1
 
     calc_amt = round(total_tax - rebate, 2)
