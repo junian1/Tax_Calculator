@@ -14,7 +14,7 @@ function OnClickedEstimateTax() {
   var monthlysalary = document.getElementById("uiMonthlySalary");
   var donations = document.getElementById("uiDonations");
   var deductibles = document.getElementById("uiDeductibles");
-  var percentage = getEPFPercentage();
+  var epf_perc = getEPFPercentage();
   var estTax = document.getElementById("uiEstimatedTax");
 
   var url = "http://127.0.0.1:5000/income_tax"; //Use this if you are NOT using nginx which is first 7 tutorials
@@ -24,7 +24,7 @@ function OnClickedEstimateTax() {
       monthlysalary: parseFloat(monthlysalary.value),
       donations: parseFloat(donations.value),
       deductibles: parseFloat(deductibles.value),
-      percentage: percentage
+      epf_perc: epf_perc
   },function(data, status) {
       console.log(data.estimated_tax);
       estTax.innerHTML = "<h2>RM " + data.estimated_tax.toString() + "</h2>";

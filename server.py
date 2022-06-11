@@ -17,7 +17,7 @@ def income_tax():
     monthlysalary = float(request.form['monthlysalary'])
     donations = float(request.form['donations'])
     deductibles = float(request.form['deductibles'])
-    epf_perc = int(request.form['percentage'])
+    epf_perc = int(request.form['epf_perc'])
 
     response = jsonify({
         'estimated_tax': Calculator.calc_tax(monthlysalary, donations, deductibles, epf_perc)
@@ -31,8 +31,5 @@ if __name__ == "__main__":
     print("Starting Python Flask Server for Tax Calculator")
     Calculator.load_saved_artifacts()
     app.run(debug=True)
-
-
-
 
 
