@@ -30,6 +30,6 @@ def income_tax():
 if __name__ == "__main__":
     print("Starting Python Flask Server for Tax Calculator")
     Calculator.load_saved_artifacts()
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port='5000')
 
 
