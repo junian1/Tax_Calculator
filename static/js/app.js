@@ -16,9 +16,7 @@ function OnClickedEstimateTax() {
   var deductibles = document.getElementById("uiDeductibles");
   var epf_perc = getEPFPercentage();
   var estTax = document.getElementById("uiEstimatedTax");
-
-  var url = "http://127.0.0.1:5000/income_tax"; //Use this if you are NOT using nginx which is first 7 tutorials
-  //var url = "/api/income_tax"; // Use this if  you are using nginx. i.e tutorial 8 and onwards
+  var url = "https://calculator-tax.herokuapp.com/"; 
 
   $.post(url, {
       monthlysalary: parseFloat(monthlysalary.value),
