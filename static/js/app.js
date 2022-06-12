@@ -17,7 +17,7 @@ function OnClickedEstimateTax() {
   var epf_perc = getEPFPercentage();
   var estTax = document.getElementById("uiEstimatedTax");
   //var url = "http://127.0.0.1:5000/income_tax";
-  var url = "https://calculator-tax.herokuapp.com/"; 
+  var url = "https://calculator-tax.herokuapp.com/income_tax"; 
 
   $.post(url, {
       monthlysalary: parseFloat(monthlysalary.value),
