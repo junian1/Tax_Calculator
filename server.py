@@ -15,12 +15,13 @@ def index():
 @app.route('/income_tax', methods=['GET', 'POST'])
 def income_tax():
     monthlysalary = float(request.form['monthlysalary'])
+    bonus = float(request.form['bonus'])
     donations = float(request.form['donations'])
     deductibles = float(request.form['deductibles'])
     epf_perc = int(request.form['epf_perc'])
 
     response = jsonify({
-        'estimated_tax': Calculator.calc_tax(monthlysalary, donations, deductibles, epf_perc)
+        'estimated_tax': Calculator.calc_tax(monthlysalary, bonus, donations, deductibles, epf_perc)
     })
 
     response.headers.add('Access-Control-Allow-Origin', '*')

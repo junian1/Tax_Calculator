@@ -12,15 +12,17 @@ function getEPFPercentage() {
 function OnClickedEstimateTax() {
   console.log("Estimate income tax clicked");
   var monthlysalary = document.getElementById("uiMonthlySalary");
+  var bonus = document.getElementById("uiBonus");
   var donations = document.getElementById("uiDonations");
   var deductibles = document.getElementById("uiDeductibles");
   var epf_perc = getEPFPercentage();
   var estTax = document.getElementById("uiEstimatedTax");
-  //var url = "http://127.0.0.1:5000/income_tax";
-  var url = "https://calculator-tax.herokuapp.com/income_tax"; 
+  var url = "http://127.0.0.1:5000/income_tax"; // use this for localhost
+  //var url = "https://incometax-calculator.herokuapp.com/income_tax"; 
 
   $.post(url, {
       monthlysalary: parseFloat(monthlysalary.value),
+      bonus: parseFloat(bonus.value),
       donations: parseFloat(donations.value),
       deductibles: parseFloat(deductibles.value),
       epf_perc: epf_perc
