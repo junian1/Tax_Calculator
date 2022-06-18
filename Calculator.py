@@ -1,6 +1,29 @@
-from Class import Tax_Bracket
 import json
 from ImportTax import tax_array
+
+# Variables used to run within script
+# try:
+#     monthlysalary = float(input("How much is your monthly salary?: "))
+# except:
+#     print("Invalid amount")
+#     sys.exit(1)
+# try:
+#     bonus = float(input("How much is your bonus?: "))
+# except:
+#     print("Invalid amount")
+#     sys.exit(1)
+# try:
+#     donations = float(input("How much are your donations?: "))
+# except:
+#     print("Invalid amount")
+#     sys.exit(1)
+# try:
+#     deductibles = float(input("How much are your deductibles after restriction"
+#                               " (eg. lifestyle purchase, medical, insurance...)?: "))
+# except:
+#     print("Invalid amount")
+#     sys.exit(1)
+# epf_perc = input("Is your EPF percentage 9%? (True/False): ")
 
 # Socso percentage
 socso_perc = 0.004115
@@ -11,7 +34,7 @@ self = 9000
 __data_columns = None
 
 
-def calc_tax(monthlysalary, donations, deductibles, epf_perc, debug=False):
+def calc_tax(monthlysalary, bonus, donations, deductibles, epf_perc, debug=True):
 
     # Convert radio buttons to EPF percentage
     if epf_perc == 1:
@@ -27,7 +50,7 @@ def calc_tax(monthlysalary, donations, deductibles, epf_perc, debug=False):
     # Total reliefs
     total_relief = round(self + donations + deductibles + annual_epf + annual_socso, 2)
     # chargeable_income is the final amount gov can tax from you
-    chargeable_income = float(annual_sal) - total_relief
+    chargeable_income = float(annual_sal) + bonus - total_relief
 
     # Rebate deduction for lower income individuals
     if chargeable_income < 35000:
@@ -52,6 +75,7 @@ def calc_tax(monthlysalary, donations, deductibles, epf_perc, debug=False):
     # To turn on debugging, manually change debug=True in the function parameter
     if debug == True:
         print("monthlysalary: " + str(monthlysalary))
+        print("bonus: " + str(bonus))
         print("donations: " + str(donations))
         print("deductibles: " + str(deductibles))
         print("epf_perc: " + str(epf_perc))
@@ -69,6 +93,9 @@ def calc_tax(monthlysalary, donations, deductibles, epf_perc, debug=False):
         print("final_tax: " + str(final_tax))
     
     return final_tax
+
+# Use this to execute within the script
+# print(calc_tax(monthlysalary, bonus, donations, deductibles, epf_perc, debug=True))
 
 
 def load_saved_artifacts():
