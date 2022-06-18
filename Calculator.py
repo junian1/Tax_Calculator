@@ -34,7 +34,7 @@ self = 9000
 __data_columns = None
 
 
-def calc_tax(monthlysalary, bonus, donations, deductibles, epf_perc, debug=True):
+def calc_tax(monthlysalary, bonus, donations, deductibles, epf_perc, debug=False):
 
     # Convert radio buttons to EPF percentage
     if epf_perc == 1:
