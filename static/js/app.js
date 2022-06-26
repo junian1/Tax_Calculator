@@ -1,3 +1,12 @@
+// const monthlysalary = document.getElementById('uiMonthlySalary')
+// const bonus = document.getElementById('uiBonus')
+// const donations = document.getElementById('uiDonations')
+// const deductibles = document.getElementById('uiDeductibles')
+// const epf_perc = getEPFPercentage()
+// const estTax = document.getElementById("uiEstimatedTax")
+// const error = document.getElementById("error")
+
+
 function getEPFPercentage() {
   var uiEPF = document.getElementsByName("uiEPF");
   for(var i in uiEPF) {
@@ -32,4 +41,20 @@ function OnClickedEstimateTax() {
       console.log(status);
   });
 }
+
+
+
+// function isnumeric(inputtxt) {
+	// var numbers = /^[0-9]+$/;
+	// if(inputtxt.value.match(numbers)) {
+		// alert('Your value is valid');
+		// document.form.text.focus();
+		// return true;
+	// }
+	// else {
+		// alert('Your value is not valid');
+		// document.form.text.focus();
+		// return false;
+	// }
+// }
 

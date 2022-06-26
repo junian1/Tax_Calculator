@@ -3,6 +3,18 @@ import Calculator
 
 app = Flask(__name__)
 
+monthlysalary = Calculator.self
+
+headings = ("Categories","Amount")
+data = (
+    ("KWSP", "X"),
+    ("SOCSO", "Y"),
+    ("Donations", "Z"),
+    ("Deductibles", "A"),
+    ("Chargeable Income", "B")
+)
+
+
 # For testing
 @app.route('/hello', methods = ['GET'])
 def hello():
@@ -10,7 +22,7 @@ def hello():
 
 @app.route('/')
 def index():
-    return render_template('app.html')
+    return render_template('app.html', headings=headings, data=data)
 
 @app.route('/income_tax', methods=['GET', 'POST'])
 def income_tax():
