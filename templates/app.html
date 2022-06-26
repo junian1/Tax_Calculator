@@ -1,36 +1,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Income Tax Estimate</title>
+    <title>Income Tax Calculator</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-		<link rel="stylesheet" href="{{ url_for('static', filename='js/app.js') }}">
+	<link rel="stylesheet" type = "text/css" href="../static/css/app.css" >
+	<link rel="shortcut icon" href="#" />
 </head>
 <body>
-<div class="img"></div>
-<form class="form">
+<form action="/" method="POST" onsubmit="return checkForm(this;">
+<div id="error"></div>
+	<h1>Income Tax Calculator</h1>
 	<h2>Monthly Salary</h2>
-		<input class="salary"  type="text" id="uiMonthlySalary" class="floatLabel" name="Squareft" value="3000">
-	<h2>Bonus</h2>
-		<input class="bonus"  type="text" id="uiBonus" class ="floatLabel" name="Squareft" value="300">
-	<h2>Donations</h2>
-		<input class="donations"  type="text" id="uiDonations" class="floatLabel" name="Squareft" value="500">
-	<h2>Deductibles</h2>
-		<input class="deductibles"  type="text" id="uiDeductibles" class="floatLabel" name="Squareft" value="500">
-	</div>
-	</form>
-<form method="post" class="form">
+		<input type="text" id="uiMonthlySalary" name="salary" value="4000"  />
+	<h2>Total Bonus</h2>
+		<input type="text" id="uiBonus" name="bonus" value="300" />
+	<h2>Total Donations</h2>
+		<input type="text" id="uiDonations" name="donations" value="500" />
+	<h2>Total Deductibles</h2>
+		<input type="text" id="uiDeductibles" name="deductibles" value="500" />
 	<h2>EPF Percentage</h2>
-	<div class="switch-field">
 		<input type="radio" id="radio-epf-1" name="uiEPF" value="9" checked/>
 		<label for="radio-epf-1">9</label>
-		<input type="radio" id="radio-epf-2" name="uiEPF" value="12"/>
-		<label for="radio-epf-2">12</label>
-	</div>
-	<button class="submit" onclick="OnClickedEstimateTax()" type="button">Estimate Income Tax</button>
-	<div id="uiEstimatedTax" class="result"> 
-	</div>
-	</form>
+		<input type="radio" id="radio-epf-2" name="uiEPF" value="11"/>
+		<label for="radio-epf-2">11</label>
+<div></div>	
+<button type="button" onclick="OnClickedEstimateTax()">Estimate Income Tax</button>
+<div id="uiEstimatedTax"></div>
+<table>
+	<tr>
+		{% for header in headings %}
+		<th>{{ header }} </th>
+		{% endfor %}
+	</tr>
+	{% for row in data %}
+	<tr>
+		{% for cell in row %}
+		<td>{{ cell }}</td>
+		{% endfor %}
+	</tr>
+	{% endfor %}
+</table>
+<button id="mybutton" type="button" onclick="htmlToCSV('IncomeTax-Calculator.csv')">Download Table</button>
+<script>
+function htmlToCSV(filename) {
+	var data = [];
+	var rows = document.querySelectorAll("table tr");
+	
+	for (var i = 0; i < rows.length; i++) {
+		var row = [], cols = rows[i].querySelectorAll("td, th");
+		
+		for (var j = 0; j < cols.length; j++) 
+			row.push(cols[j].innerText);
+		
+		data.push(row.join(","));
+		
+	}
+	downloadCSVFile(data.join("\n"), filename);
+}
+
+function downloadCSVFile(csv,filename) {
+	var csv_file, download_link;
+	
+	csv_file = new Blob([csv], {type: "text/csv"});
+	
+	download_link = document.createElement("a");
+	download_link.download = filename;
+	download_link.href = window.URL.createObjectURL(csv_file);
+	download_link.style.display = "none";
+
+	document.body.appendChild(download_link);
+
+	download_link.click();
+}
+</script>
+</form>
 </body>
 </html>
-	
+
+

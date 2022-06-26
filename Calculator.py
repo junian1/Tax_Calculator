@@ -40,7 +40,7 @@ def calc_tax(monthlysalary, bonus, donations, deductibles, epf_perc, debug=False
     if epf_perc == 1:
         epf_perc = 0.09
     else:
-        epf_perc = 0.12
+        epf_perc = 0.11
     
     # Convert variables from monthly to annually
     annual_epf = monthlysalary * epf_perc * 12
