@@ -27,7 +27,7 @@ function OnClickedEstimateTax() {
   var epf_perc = getEPFPercentage();
   var estTax = document.getElementById("uiEstimatedTax");
   //var url = "http://127.0.0.1:5000/income_tax"; // use this for localhost
-  var url = "https://incometax-calculator.herokuapp.com/income_tax"; 
+  var url = "https://incometaxcalculator.up.railway.app/income_tax"; 
 
   $.post(url, {
       monthlysalary: parseFloat(monthlysalary.value),
